@@ -1,0 +1,8 @@
+{
+  "name": "agent-cross-check",
+  "owner": { "name": "naoanao" },
+  "metadata": {
+    "description": "Claude audits commits made by another coding agent: by diff and tests, not by their report."
+  },
+  "plugins": [{ "name": "agent-cross-check", "source": "./" }]
+}

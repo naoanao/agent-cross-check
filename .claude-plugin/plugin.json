@@ -1,0 +1,36 @@
+{
+  "name": "agent-cross-check",
+  "version": "0.1.0",
+  "description": "When another coding agent (or a person) commits to your repo, Claude notices, runs mechanical checks (line endings, secrets, .env files) and audits the commits by diff and tests instead of trusting their report.",
+  "author": { "name": "naoanao" },
+  "license": "MIT",
+  "homepage": "https://github.com/naoanao/agent-cross-check",
+  "repository": "https://github.com/naoanao/agent-cross-check",
+  "keywords": ["multi-agent", "code-review", "audit", "git", "claude-code-mod"],
+  "userConfig": {
+    "trustedMarker": {
+      "type": "string",
+      "title": "Marker of your own commits",
+      "description": "Text in a commit message that marks it as made by this Claude, comma separated for several. Commits without it are treated as another agent's.",
+      "default": "Co-Authored-By: Claude"
+    },
+    "autoReview": {
+      "type": "boolean",
+      "title": "Review automatically",
+      "description": "Ask Claude to audit new commits as soon as they appear (at most once an hour). Off: a notice above the prompt and /cross-check.",
+      "default": false
+    },
+    "usageCeiling": {
+      "type": "number",
+      "title": "Usage ceiling for automatic review (%)",
+      "description": "Automatic review waits while the 5-hour or weekly usage is at or above this percentage.",
+      "default": 90
+    },
+    "checkEveryMinutes": {
+      "type": "number",
+      "title": "Check every (minutes)",
+      "description": "How often to look for new commits while the session is open.",
+      "default": 10
+    }
+  }
+}
