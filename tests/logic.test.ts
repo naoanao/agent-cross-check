@@ -1,5 +1,20 @@
 import { expect, test } from 'claude-code/testing'
-import { LOG_FORMAT, parseLog, isOwn, foreignCommits, mayAutoReview, secretPatternHits, lineEndingChurn, reviewPrompt } from '../hooks/logic.js'
+import { LOG_FORMAT, parseLog, isOwn, foreignCommits, mayAutoReview, secretPatternHits, lineEndingChurn, reviewPrompt, isReportFile, namedPaths, claimLines, isGitPush, pushTargetDir } from '../hooks/logic.js'
+
+test('0.2.0: report files, named paths, claims and real push commands', () => {
+  expect(isReportFile('docs/REPORT_2026.md')).toBe(true)
+  expect(isReportFile('docs/active/ANTIGRAVITY_報告_x.md')).toBe(true)
+  expect(isReportFile('src/report.ts')).toBe(false)
+  expect(namedPaths(['see `src/a.ts` and C:\\x\\v.mp4 and `b.ts` and `site.com/x.html` and `C:\\t\\<tool>\\LOG.md`'])).toEqual(['src/a.ts', 'C:\\x\\v.mp4'])
+  expect(claimLines(['All tests passed.', 'Changed the header.']).length).toBe(1)
+  expect(isGitPush('git -C repo push origin main')).toBe(true)
+  expect(isGitPush('echo "never git push here"')).toBe(false)
+  expect(isGitPush("cat > a.md <<'EOF'\ngit push later\nEOF")).toBe(false)
+  expect(pushTargetDir('git -C "C:/x y/repo" push')).toBe('C:/x y/repo')
+  expect(pushTargetDir('cd /work/site && git push')).toBe('/work/site')
+  expect(pushTargetDir('Set-Location C:\\repo; git push')).toBe('C:\\repo')
+  expect(pushTargetDir('git push origin main')).toBeUndefined()
+})
 
 const RS = '\x1e'
 const US = '\x1f'
