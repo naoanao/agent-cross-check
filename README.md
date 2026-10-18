@@ -1,5 +1,7 @@
 # agent-cross-check
 
+<a href="https://fazier.com" target="_blank" rel="noopener noreferrer"><img src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=light" width="200" height="40" alt="Launched on Fazier"></a>
+
 **A Claude Code mod: when another coding agent commits to your repo, Claude notices and audits it by diff and tests instead of trusting its report.**
 
 I build with two agents. One writes code, and Claude reviews it. The second agent commits under the same git name and writes confident reports. In one week, three of its reports did not match the code:
