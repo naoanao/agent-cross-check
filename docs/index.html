@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>agent-cross-check — Claude audits other agents' commits</title>
+<meta name="description" content="A Claude Code mod: when another coding agent commits to your repo, Claude notices and audits it by diff and tests instead of trusting its report.">
+<style>
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; margin: 0; background: #0f172a; color: #e2e8f0; }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 20px 64px; }
+  h1 { font-size: 2rem; margin: 0 0 8px; }
+  .tagline { color: #94a3b8; margin: 0 0 32px; }
+  h2 { font-size: 1.1rem; margin: 32px 0 8px; }
+  p, li { line-height: 1.7; }
+  code, pre { background: #1e293b; border-radius: 6px; }
+  code { padding: 2px 6px; }
+  pre { padding: 14px 16px; overflow-x: auto; }
+  a { color: #60a5fa; }
+  .badges { margin: 40px 0 8px; }
+  footer { color: #64748b; font-size: 0.9rem; margin-top: 48px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>agent-cross-check</h1>
+  <p class="tagline">Free tool that cross-checks AI agents' work, verified by another AI.</p>
+
+  <p><strong>A Claude Code mod: when another coding agent commits to your repo, Claude notices and audits it by diff and tests instead of trusting its report.</strong></p>
+
+  <p>I build with two agents. One writes code, and Claude reviews it. The second agent commits under the same git name and writes confident reports — and in one week, three of its reports did not match the code. Reviews only happen if someone notices the commits. This mod does the noticing.</p>
+
+  <h2>What it does</h2>
+  <ul>
+    <li><strong>Notices</strong> new commits from other agents (session start, after every turn, every 10 minutes).</li>
+    <li><strong>Checks mechanically</strong> — changed files and lines, line-ending churn, secret-looking strings, committed <code>.env</code> files, and report claims against the real files.</li>
+    <li><strong>Asks Claude to audit</strong> with <code>/cross-check</code>: check against the diffs and by running the relevant tests; report only, never revert.</li>
+    <li><strong>Holds the push until reviewed</strong> (0.2.0), so unreviewed commits do not leave the repo unnoticed.</li>
+  </ul>
+
+  <h2>Install</h2>
+  <pre>/plugin marketplace add naoanao/agent-cross-check
+/plugin install agent-cross-check@agent-cross-check</pre>
+
+  <p>Source, full documentation and tests: <a href="https://github.com/naoanao/agent-cross-check">github.com/naoanao/agent-cross-check</a></p>
+
+  <div class="badges">
+    <a href="https://launchnest.io/p/agent-cross-check" target="_blank">
+    <img src="https://launchnest.io/badge/agent-cross-check.svg?variant=featured" alt="agent-cross-check on LaunchNest" width="220" height="56" />
+  </a>
+  </div>
+
+  <footer>Made by naoanao. MIT License. Sends nothing over the network; runs only read-only git.</footer>
+</main>
+</body>
+</html>
